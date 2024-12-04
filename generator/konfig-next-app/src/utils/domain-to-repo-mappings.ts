@@ -108,7 +108,7 @@ export const domainToRepoMappings: Record<
     repo: 'snaptrade-sdks',
   },
   'test.dylanhuang.com': {
-    owner: 'passiv',
+    owner: 'dphuang2',
     repo: 'snaptrade-sdks',
   },
   'docs-v2.snaptrade.com': {
