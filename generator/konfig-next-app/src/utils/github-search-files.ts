@@ -42,25 +42,42 @@ export async function githubSearchFiles({
     return JSON.parse(cached)
   }
   try {
+    console.log(
+      `[GITHUB_SEARCH] Starting search for files with query: filename:${filename} in repo:${owner}/${repo}`
+    )
     const query = `filename:${filename} repo:${owner}/${repo}`
+    const start = Date.now()
     const response: SearchResponse = await octokit.search.code({ q: query })
+    console.log(
+      `[GITHUB_SEARCH] GitHub search API call took ${Date.now() - start}ms`
+    )
 
-    console.debug('response.data', response.data)
+    console.debug('[GITHUB_SEARCH] response.data', response.data)
 
     if (response.data.total_count === 0) {
+      console.log('[GITHUB_SEARCH] No files found matching search criteria')
       return null
     }
 
+    console.log(
+      `[GITHUB_SEARCH] Found ${response.data.total_count} matching files`
+    )
     const result = response.data.items.map((item) => ({
       name: item.name,
       path: item.path,
       url: item.html_url,
     }))
+
+    const cacheStart = Date.now()
     await setGithubApiCache({
       namespace: 'search',
       key: cacheKey,
       value: JSON.stringify(result),
     })
+    console.log(
+      `[GITHUB_SEARCH] Caching search results took ${Date.now() - cacheStart}ms`
+    )
+
     return result
   } catch (error) {
     if (error instanceof Error)
