@@ -1,7 +1,7 @@
 import { Octokit } from '@octokit/rest'
 import { createAppAuth } from '@octokit/auth-app'
 
-const APP_ID = 276014
+const APP_ID = 1078095
 
 export async function createOctokitInstance({
   owner,
