@@ -22,8 +22,6 @@ services:
     buildFilter:
       paths:
       - generator/konfig-dash/**/*
-    domains:
-      - demo.konfigthis.com
     envVars:
       - key: GITHUB_API_REDIS_CACHE
         fromService:
