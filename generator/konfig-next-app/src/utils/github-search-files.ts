@@ -80,6 +80,15 @@ export async function githubSearchFiles({
 
     return result
   } catch (error) {
+    if (
+      error instanceof Error &&
+      error.message.includes('API rate limit exceeded')
+    ) {
+      console.warn(
+        '[GITHUB_SEARCH] GitHub API rate limit exceeded, returning null'
+      )
+      return null
+    }
     if (error instanceof Error)
       throw new Error(
         `Error occurred while searching for files: ${error.message}`
