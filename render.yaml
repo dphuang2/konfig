@@ -33,9 +33,10 @@ services:
           name: konfig-python-remote-code-executor
           type: pserv
           property: hostport
-      - fromGroup: cloudflare
-      - fromGroup: openai
-      - fromGroup: github
+      - key: CLOUDFLARE_IMAGES_API_KEY
+        sync: false
+      - key: GITHUB_APP_PRIVATE_KEY
+        sync: false
       - key: OPENAI_API_KEY
         sync: false
       - key: NPM_TOKEN
@@ -55,17 +56,3 @@ services:
         value: 3.9.16
       - key: PORT
         value: 8000
-
-envVarGroups:
-  - name: cloudflare
-    envVars:
-      - key: CLOUDFLARE_IMAGES_API_KEY
-        sync: false
-  - name: openai
-    envVars:
-      - key: OPENAI_API_KEY
-        sync: false
-  - name: github
-    envVars:
-      - key: GITHUB_APP_PRIVATE_KEY
-        sync: false
